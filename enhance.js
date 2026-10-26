@@ -173,16 +173,6 @@
   document.addEventListener('click', e => { if (e.target.closest('[data-close-product]')) closeProducts(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProducts(); });
 
-  // smooth in-view scrolling for product nav + hero anchor links
-  document.addEventListener('click', e => {
-    const a = e.target.closest('[data-pv-scroll]');
-    if (!a) return;
-    const pv = a.closest('.product-view'); if (!pv) return;
-    const id = a.getAttribute('href');
-    const t = id && id[0] === '#' ? pv.querySelector(id) : null;
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  });
-
   // trial sign-up form (front-end validation; wire a real endpoint later)
   const form = document.querySelector('.signup-form');
   if (form) {
@@ -222,7 +212,11 @@ document.addEventListener('click', e => {
   e.stopImmediatePropagation();
   document.querySelectorAll('.product-view:not([hidden]), .download-view:not([hidden])').forEach(o => { o.querySelector('.pv-video')?.pause(); o.hidden = true; });
   document.body.classList.remove('product-open', 'download-open');
-  document.getElementById('dang-ky')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const signup = document.getElementById('dang-ky');
+  if (signup) {
+    const head = signup.querySelector('.section-head') || signup;
+    window.scrollTo({ top: head.getBoundingClientRect().top + scrollY - (document.querySelector('.header')?.offsetHeight || 88) - 16, behavior: 'smooth' });
+  }
 }, true);
 
 /* ---------- "Xem cách hoạt động" on FaceLiveStream → scroll to and play the hero video ---------- */
@@ -246,6 +240,32 @@ document.addEventListener('click', e => {
   if (!grid) return;
   const step = (grid.querySelector('.review-card')?.offsetWidth || 320) + 20;
   grid.scrollBy({ left: b.hasAttribute('data-review-next') ? step : -step, behavior: 'smooth' });
+});
+
+/* ---------- In-page links land on the section heading, just under the sticky header ---------- */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || a.hasAttribute('data-close-download')) return;
+  const id = a.getAttribute('href').slice(1);
+  const target = id && document.getElementById(id);
+  if (!target || !target.classList.contains('section')) return;
+  e.preventDefault();
+  const fromPv = a.closest('.product-view');
+  const inPv = target.closest('.product-view');
+  if (fromPv && !inPv) {                      // leaving a product page for a main-page section
+    fromPv.querySelector('.pv-video')?.pause();
+    fromPv.hidden = true;
+    document.body.classList.remove('product-open');
+  }
+  const head = target.querySelector('.section-head') || target;
+  if (inPv) {
+    const box = inPv.querySelector('.pv-scroll');
+    const bar = inPv.querySelector('.pv-header');
+    box.scrollTo({ top: head.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - (bar?.offsetHeight || 0) - 16, behavior: 'smooth' });
+  } else {
+    const bar = document.querySelector('.header');
+    window.scrollTo({ top: head.getBoundingClientRect().top + scrollY - (bar?.offsetHeight || 88) - 16, behavior: 'smooth' });
+  }
 });
 
 /* ---------- Logo = home: clicking the logo inside any overlay closes it ---------- */

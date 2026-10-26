@@ -411,14 +411,14 @@ body.product-open{overflow:hidden}
 
 /* hero + experience: purple wash over the model's legs so the crop reads intentional */
 .hero-side-by-side{position:relative}
-.hero-side-by-side .hero-person{-webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 96%);mask-image:linear-gradient(to bottom,#000 58%,transparent 96%)}
-.hero-side-by-side::after{content:"";position:absolute;right:-2%;bottom:-4%;width:46%;height:40%;pointer-events:none;z-index:2;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.42),rgba(91,56,219,0));filter:blur(14px)}
+.hero-side-by-side .hero-person{-webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
+.hero-side-by-side::after{content:"";position:absolute;right:-2%;bottom:-4%;width:40%;height:16%;pointer-events:none;z-index:2;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.42),rgba(91,56,219,0));filter:blur(14px)}
 .experience-art-stage{position:relative}
-.experience-layered .experience-staff{-webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 96%);mask-image:linear-gradient(to bottom,#000 58%,transparent 96%)}
-.experience-art-stage::after{content:"";position:absolute;right:-2%;bottom:-4%;width:50%;height:40%;pointer-events:none;z-index:4;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.42),rgba(91,56,219,0));filter:blur(14px)}
+.experience-layered .experience-staff{-webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
+.experience-art-stage::after{content:"";position:absolute;right:-2%;bottom:-4%;width:40%;height:16%;pointer-events:none;z-index:4;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.42),rgba(91,56,219,0));filter:blur(14px)}
 
 /* feature collage: shift left for balance */
-@media (min-width:861px){ .feat-art{margin-left:-56px} }
+
 
 /* audience cards: icon left, title right, grey text left-aligned under the title */
 .audience-card{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:start;text-align:left}
@@ -577,3 +577,62 @@ body.product-open{overflow:hidden}
 .su-point{display:flex;gap:16px;align-items:flex-start}
 .su-point h3{font-size:17px;margin:4px 0 4px}
 .su-point p{font-size:14px;color:var(--muted);line-height:1.6;margin:0}
+
+/* FAQ: answers were clipped by the details box (overflow:hidden) */
+.faq-grid details{overflow:visible!important}
+
+/* model: only the bottom edge fades */
+
+/* features collage fills the left column */
+.feat-split{gap:40px}
+.feat-img-main{width:84%}
+.feat-img-sub{width:44%}
+
+/* versions block: tighter top and bottom spacing */
+.section.versions{padding:56px 0}
+
+/* faded back arrow on product pages */
+.pv-back-arrow{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:70;width:56px;height:56px;border:0;background:none;color:var(--purple);font-size:52px;line-height:1;display:grid;place-items:center;padding:0 0 6px;opacity:.4;cursor:pointer;transition:opacity .2s}
+.pv-back-arrow:hover,.pv-back-arrow:focus-visible{opacity:1}
+@media (max-width:640px){ .pv-back-arrow{left:4px;width:44px;height:44px;font-size:40px} }
+
+/* FAQ: answer eases down under the question */
+.faq-grid details .answer{transform-origin:top center;will-change:opacity,transform}
+.faq-grid details[open] .answer{animation:faq-drop .32s cubic-bezier(.2,.7,.2,1)}
+@keyframes faq-drop{from{opacity:0;transform:translateY(-10px) scaleY(.92)}to{opacity:1;transform:none}}
+.faq-grid details .answer p{margin:0;font-size:14px;line-height:1.7;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){ .faq-grid details[open] .answer{animation:none} }
+
+/* download cards: equal height, buttons and versions line up across the three */
+.os-grid{align-items:stretch}
+.os-grid .os-card{transform:none;border:1px solid #ece9ff;box-shadow:0 14px 34px #6a54c80f;padding-bottom:26px}
+.os-grid .os-card.you{border-color:#a98dff}
+.os-grid .os-card:hover{transform:translateY(-4px)}
+.os-card .os-note{min-height:44px;display:flex;align-items:center;justify-content:center}
+.os-card .os-ver{margin-top:auto;padding-top:18px}
+
+/* features collage: two stacked images with clear space between them */
+.feat-art{display:flex;flex-direction:column;gap:22px;align-items:stretch;min-height:0}
+.feat-img-main,.feat-img-sub{transform:none!important;position:relative;inset:auto;box-shadow:0 18px 40px #6761cb1f}
+.feat-img-main{width:100%}
+.feat-img-sub{width:66%;align-self:flex-end}
+.feat-art:hover .feat-img-main,.feat-art:hover .feat-img-sub{transform:none!important}
+
+/* features collage: presenter cutout beside the detail screenshot */
+.feat-row{display:flex;gap:18px;align-items:flex-end}
+.feat-row .feat-img-sub{width:62%;align-self:flex-end}
+.feat-person{width:34%;height:auto;display:block;object-fit:contain;filter:drop-shadow(0 16px 18px #51447020)}
+
+/* features collage, reference layout: large screen top-right, small screen bottom-left, presenter in front */
+.feat-art{height:520px;min-height:0;display:block;position:relative}
+.feat-art .feat-img-main{position:absolute;top:0;right:0;left:auto;width:80%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:top left;z-index:1;transform:none!important;border-radius:18px}
+.feat-art .feat-img-sub{position:absolute;left:0;bottom:0;top:auto;right:auto;width:50%;height:auto;aspect-ratio:3/2;object-fit:cover;z-index:2;transform:none!important;border:3px solid #fff;border-radius:14px}
+.feat-art .feat-person{position:absolute;right:0;bottom:0;height:100%;width:auto;aspect-ratio:1024/1536;z-index:3;filter:drop-shadow(0 16px 18px #51447024)}
+@media (max-width:860px){ .feat-art{height:440px} }
+
+/* features collage, matched to the reference: screens are the focus, presenter smaller and her feet fade out */
+.feat-art{height:600px}
+.feat-art .feat-img-main{width:84%}
+.feat-art .feat-img-sub{top:43%;bottom:auto;width:52%}
+.feat-art .feat-person{height:64%;width:auto;right:2%;bottom:0;-webkit-mask-image:linear-gradient(to bottom,#000 74%,transparent 100%);mask-image:linear-gradient(to bottom,#000 74%,transparent 100%)}
+.feat-art::after{content:"";position:absolute;right:4%;bottom:-2%;width:44%;height:16%;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.32),rgba(91,56,219,0));filter:blur(12px);pointer-events:none;z-index:2}
