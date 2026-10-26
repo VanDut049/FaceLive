@@ -561,3 +561,19 @@ body.product-open{overflow:hidden}
 /* features collage: same frame size for both products (FaceLiveStream's OBS screenshot is portrait and made its column taller, shifting the headings) */
 .feat-img-main,.feat-img-sub{aspect-ratio:3/2;object-fit:cover;object-position:top left;height:auto}
 .feat-art{min-height:0}
+
+/* product headline: product name above the headline */
+.pv-name{display:block;font-size:.42em;font-weight:700;letter-spacing:-.01em;color:var(--purple);margin-bottom:12px;line-height:1.2}
+
+/* Facebook mark: taller glyph so it reads like the other platform marks */
+.platform.facebook svg{width:auto;height:64%}
+
+/* sign-up: side points on the left, form pushed right */
+@media (min-width:981px){
+  .signup-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;max-width:1080px;align-items:center}
+  .signup-form{justify-self:end;width:100%}
+}
+.signup-side{display:grid;gap:26px}
+.su-point{display:flex;gap:16px;align-items:flex-start}
+.su-point h3{font-size:17px;margin:4px 0 4px}
+.su-point p{font-size:14px;color:var(--muted);line-height:1.6;margin:0}
