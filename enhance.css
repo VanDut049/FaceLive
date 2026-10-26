@@ -636,3 +636,8 @@ body.product-open{overflow:hidden}
 .feat-art .feat-img-sub{top:43%;bottom:auto;width:52%}
 .feat-art .feat-person{height:64%;width:auto;right:2%;bottom:0;-webkit-mask-image:linear-gradient(to bottom,#000 74%,transparent 100%);mask-image:linear-gradient(to bottom,#000 74%,transparent 100%)}
 .feat-art::after{content:"";position:absolute;right:4%;bottom:-2%;width:44%;height:16%;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.32),rgba(91,56,219,0));filter:blur(12px);pointer-events:none;z-index:2}
+
+/* product page: sticky back-to-top, bottom right, same look as the main page one */
+.pv-to-top{position:fixed;right:22px;bottom:22px;z-index:70;width:38px;height:38px;display:grid;place-items:center;border:1px solid #e0dbff;border-radius:50%;background:#fff;color:var(--purple);box-shadow:0 6px 16px #6a54c81a;cursor:pointer;transition:transform .2s}
+.pv-to-top:hover{transform:translateY(-2px)}
+.pv-to-top .icon{width:16px;height:16px;transform:rotate(-90deg)}
