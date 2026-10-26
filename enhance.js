@@ -129,6 +129,9 @@
     card.classList.add('you');
   }
 
+  // OS highlight for the in-page download blocks inside each product
+  document.querySelectorAll('.product-view').forEach(detectOS);
+
   /* ---------- 5. Scroll reveal ---------- */
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduce && 'IntersectionObserver' in window) {
