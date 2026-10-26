@@ -268,6 +268,13 @@ document.addEventListener('click', e => {
   }
 });
 
+/* ---------- Product page: sticky back-to-top ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-pv-top]');
+  if (!b) return;
+  b.closest('.product-view')?.querySelector('.pv-scroll')?.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 /* ---------- Logo = home: clicking the logo inside any overlay closes it ---------- */
 (() => {
   'use strict';
