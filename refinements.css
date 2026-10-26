@@ -1,0 +1,250 @@
+/* Layout correction: every illustration owns its space; precise reference crops. */
+.hero-grid,.experience-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px}
+.hero-copy,.experience-copy,.version-duel,.duel-copy,.duel-art{min-width:0}
+.hero-copy h1{font-size:clamp(36px,4vw,57px)}
+.hero-visual{padding:20px 26px 20px 0}
+.hero .app-window{height:auto;min-height:440px;transform:none;padding:12px}
+.hero .app-config{overflow:hidden}
+.hero .live-preview{min-height:412px;flex-shrink:0}
+.hero .app-sidebar{width:100px}
+.hero .app-sidebar>span{white-space:normal}
+.hero .app-top{flex-wrap:wrap}
+.hero .app-top b{white-space:normal}
+.hero .script-box{margin-top:20px}
+.hero .live-note{position:relative;left:auto;bottom:auto;transform:none;margin:18px auto 0;width:fit-content;max-width:100%}
+.hero .floating-platforms{right:0;transform:none;top:65px}
+.hero .floating-platforms .platform{width:36px;height:36px}
+.hero .live-comments>span{max-width:100%;overflow-wrap:anywhere}
+.portrait,.live-preview>.portrait,.version-art>.portrait,.swap-mini .portrait,.duel-art .portrait{background-image:url('assets/versions-reference.png');background-size:603.61% 247.63%;background-position:36.344% 66.845%}
+.product,.duel-art .product{background-image:url('assets/audience-reference.png');background-size:519.255% 333.688%;background-position:8.593% 49.621%}
+.audience-card>.photo{background-size:519.255% 333.688%;aspect-ratio:322/282}
+.audience-card>.seller{background-position:8.593% 49.621%}
+.audience-card>.creator{background-position:36.37% 49.621%}
+.audience-card>.business{background-position:63.85% 49.621%}
+.audience-card>.agency{background-position:91.33% 49.621%}
+.avatar1,.avatar2,.avatar3{background-size:1562.617% 879.439%}
+.avatar1{background-position:6.198% 47.362%}
+.avatar2{background-position:39.872% 47.362%}
+.avatar3{background-position:72.971% 47.362%}
+.audience .mascot-peek{position:relative;right:auto;bottom:auto;justify-content:flex-end;margin:20px 15px -20px;transform:rotate(-7deg)}
+.audience-card h3{overflow-wrap:normal;letter-spacing:-.035em}
+.product-showcase{height:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;width:100%;max-width:none;align-items:start;padding:16px 0}
+.product-showcase:before{inset:5% -3% auto;width:100%;height:90%;max-height:550px}
+.product-showcase .panel{position:relative;inset:auto;transform:none;width:auto;min-width:0;padding:20px;border:1px solid #e7e4fc;box-shadow:0 15px 35px #6756cc10;border-radius:18px;overflow:hidden}
+.product-showcase .account-window{grid-column:1/-1}
+.product-showcase .setup-window,.product-showcase .obs-window{height:100%;min-height:0}
+.product-showcase .panel h3{font-size:15px}
+.product-showcase .panel p{font-size:9px;line-height:1.7}
+.product-showcase .tabs{flex-wrap:wrap;white-space:normal;gap:6px}
+.product-showcase .panel-title{gap:10px;flex-wrap:wrap}
+.product-showcase .input{overflow-wrap:anywhere}
+.product-showcase .toggle-row{flex-wrap:wrap;gap:9px}
+.product-showcase .obs-fields{flex-wrap:wrap}
+.product-showcase .obs-fields>div{width:100%}
+.product-showcase table{table-layout:fixed}
+.product-showcase th:first-child{width:20%}
+.product-showcase th:nth-child(2){width:30%}
+.product-showcase th:nth-child(3){width:38%}
+.product-showcase td{overflow-wrap:anywhere}
+.product-showcase .ui-caption{position:static;grid-column:1/-1;margin:0;text-align:center}
+.experience-copy h2{font-size:clamp(28px,3vw,39px)}
+.experience .feature-list p{max-width:none}
+.review-card figcaption{padding-right:13px}
+.quote-mark{right:12px;font-size:45px;pointer-events:none}
+.final-cta{grid-template-columns:minmax(150px,.7fr) minmax(0,1.5fr) minmax(205px,1fr);gap:26px}
+.cta-mascot{padding:25px 12px}
+.cta-mascot>.brand-mark{width:min(135px,80%)}
+.compatibility{min-width:0}
+.windows-box{flex-wrap:wrap}
+
+/* V1 / V2 face-off: selected panel slides over its neighbour, keeping a logo rail. */
+.version-duel{--rail:94px;--slide:650ms;position:relative;isolation:isolate;height:560px;border:1px solid #e2ddff;border-radius:28px;overflow:hidden;background:#f7f4ff;box-shadow:0 24px 70px #6b55bf0c}
+.duel-panel{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;transition:width var(--slide) cubic-bezier(.22,1,.36,1);background:#f8f5ff;z-index:1}
+.duel-v1{left:0;background:radial-gradient(ellipse at 95% 20%,#e8dfff,transparent 75%),#fbf9ff;border-right:1px solid #e1d9ff}
+.duel-v2{right:0;background:radial-gradient(ellipse at 5% 80%,#dceaff,transparent 75%),#f7faff;border-left:1px solid #dce6ff}
+.duel-rail{position:absolute;top:22px;left:26px;z-index:4;display:flex;align-items:center;justify-content:center;gap:10px;background:#ffffffa8;border:1px solid #e4dafa;padding:8px 14px;border-radius:13px;color:#6641d9;font-size:18px;font-weight:750;transition:all var(--slide) cubic-bezier(.22,1,.36,1)}
+.duel-v2 .duel-rail{left:auto;right:26px;color:#3074db;border-color:#d9e6ff}
+.duel-rail .brand-mark{width:24px;height:29px}
+.rail-arrow{display:none;font-size:24px;font-weight:400}
+.duel-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.8fr);gap:23px;align-items:center;min-height:100%;padding:96px 28px 34px;transition:opacity 200ms,transform var(--slide) cubic-bezier(.22,1,.36,1)}
+.duel-kicker{display:block;font-size:9px;color:#9783b9;font-weight:600;letter-spacing:.075em;line-height:1.8;margin-bottom:11px}
+.duel-copy h3{font-size:clamp(23px,2.15vw,30px);line-height:1.3;letter-spacing:-.04em;margin:0 0 13px}
+.duel-copy>p{font-size:13px;line-height:1.8;max-width:370px}
+.duel-copy .check-list{font-size:11px;line-height:1.7;gap:12px;margin:23px 0}
+.duel-copy .check-list .icon{width:19px;height:19px;flex-shrink:0}
+.duel-copy .btn{font-size:13px;padding:12px 17px}
+.duel-v2 .check-list .icon{background:#4184f6}
+.duel-v2 .outline{color:#2d73e4;border-color:#75a1f4}
+.duel-art{position:relative;width:100%;max-width:230px;justify-self:center;padding:0 0 49px}
+.duel-photo{position:relative;width:100%;aspect-ratio:277/380;border:4px solid #fff;border-radius:20px;box-shadow:0 16px 35px #5344791a;overflow:hidden;background:#e8e0e6}
+.duel-photo>.photo{position:absolute;inset:0;width:100%;height:100%}
+.duel-art .product{background-size:823.645% 339.711%;background-position:15.657% 50%}
+.duel-v2 .duel-photo{aspect-ratio:277/380}
+.duel-photo .live-label{top:10px;right:10px;font-size:11px}
+.duel-art-caption{position:relative;display:flex;align-items:center;gap:8px;margin:-17px 8px 0;border:1px solid #e9e3fa;box-shadow:0 8px 18px #6c5d9110;background:#fffffff5;padding:10px;border-radius:12px;font-size:9px;line-height:1.7;color:#695f85}
+.duel-art-caption .icon{width:24px;height:24px;color:#8056f2}
+.duel-platforms{display:flex;justify-content:center;gap:11px;position:absolute;bottom:0;left:0;right:0}
+.duel-platforms .platform{width:29px;height:29px;font-size:23px;border-radius:8px}
+.duel-platforms .facebook{font-size:29px;padding-top:6px}
+.duel-platforms .shopee{font-size:18px}
+.duel-vs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-10deg);z-index:5;width:62px;height:62px;display:grid;place-items:center;border:5px solid #fff;border-radius:50%;background:linear-gradient(135deg,#8057ff,#4a7ef6);color:white;font-weight:800;font-style:italic;font-size:21px;box-shadow:0 8px 24px #6b53c52b;transition:opacity 160ms,transform 300ms;pointer-events:none}
+.version-duel[data-active="1"] .duel-v1,.version-duel[data-active="2"] .duel-v2{width:calc(100% - var(--rail));z-index:3}
+.version-duel[data-active="1"] .duel-v2,.version-duel[data-active="2"] .duel-v1{z-index:2}
+.version-duel:not([data-active="none"]) .duel-vs{opacity:0;transform:translate(-50%,-50%) rotate(-10deg) scale(.6)}
+.version-duel[data-active="1"] .duel-v1 .duel-body,.version-duel[data-active="2"] .duel-v2 .duel-body{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);padding-inline:56px;gap:45px}
+.version-duel[data-active="1"] .duel-v1 .duel-copy h3,.version-duel[data-active="2"] .duel-v2 .duel-copy h3{font-size:clamp(29px,3vw,42px)}
+.version-duel[data-active="1"] .duel-v1 .duel-copy>p,.version-duel[data-active="2"] .duel-v2 .duel-copy>p{font-size:16px}
+.version-duel[data-active="1"] .duel-v1 .check-list,.version-duel[data-active="2"] .duel-v2 .check-list{font-size:14px}
+.version-duel[data-active="1"] .duel-v2 .duel-body,.version-duel[data-active="2"] .duel-v1 .duel-body{opacity:0;visibility:hidden;pointer-events:none}
+.version-duel[data-active="1"] .duel-v2 .duel-rail,.version-duel[data-active="2"] .duel-v1 .duel-rail{top:0;bottom:0;left:auto;right:0;width:var(--rail);border:0;border-radius:0;background:transparent;flex-direction:column;padding:15px 8px;gap:14px}
+.version-duel[data-active="2"] .duel-v1 .duel-rail{left:0;right:auto}
+.version-duel[data-active="1"] .duel-v2 .rail-arrow,.version-duel[data-active="2"] .duel-v1 .rail-arrow{display:block}
+.version-duel[data-active="1"] .duel-v2 .duel-rail .brand-mark,.version-duel[data-active="2"] .duel-v1 .duel-rail .brand-mark{width:34px;height:40px}
+.duel-hint{text-align:center;font-size:11px;color:#9a90af;margin:17px 0 0}
+.hint-touch{display:none}
+@media(max-width:1150px){
+ .hero-grid,.experience-grid{gap:32px}
+ .hero .app-sidebar{display:none}
+ .hero .live-preview{width:41%}
+ .hero .app-config{padding:17px 10px}
+ .hero .app-top b{font-size:10px}
+ .hero .script-box p{font-size:8px}
+ .hero .app-window{min-height:415px}
+ .hero .live-preview{min-height:387px}
+ .product-showcase .panel{padding:16px}
+ .version-duel{height:580px;--rail:80px}
+ .duel-body{gap:15px;padding:94px 23px 28px;grid-template-columns:minmax(0,1.2fr) minmax(0,.7fr)}
+ .duel-copy h3{font-size:24px}
+ .duel-copy>p{font-size:12px}
+ .duel-copy .check-list{font-size:10px;gap:11px}
+ .duel-art-caption{margin-inline:0;font-size:8px;padding:8px;gap:5px}
+ .duel-art-caption .icon{width:19px;height:19px}
+ .version-duel[data-active="1"] .duel-v1 .duel-body,.version-duel[data-active="2"] .duel-v2 .duel-body{padding-inline:38px;gap:30px}
+ .final-cta{gap:22px;grid-template-columns:minmax(130px,.6fr) minmax(0,1.5fr) minmax(190px,1fr)}
+}
+@media(min-width:701px) and (max-width:900px){
+ .version-duel{height:610px;--rail:72px}
+ .duel-body{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:93px 25px 24px;gap:20px}
+ .duel-copy h3{font-size:23px}
+ .duel-copy>p{font-size:11px;min-height:40px}
+ .duel-copy .check-list{margin:15px 0;gap:8px;font-size:10px}
+ .duel-art{max-width:175px;padding-bottom:0;align-self:center;display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:center}
+ .duel-photo,.duel-v2 .duel-photo{aspect-ratio:277/340;border-width:3px;border-radius:12px}
+ .duel-photo .live-label{font-size:7px;top:5px;right:5px;padding:3px 5px}
+ .duel-art-caption{margin:0;font-size:7px;padding:7px;flex-direction:column;text-align:center}
+ .duel-platforms{display:none}
+ .version-duel[data-active="1"] .duel-v1 .duel-body,.version-duel[data-active="2"] .duel-v2 .duel-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.8fr);padding:94px 30px 35px;gap:20px;align-items:center}
+ .version-duel[data-active="1"] .duel-v1 .duel-art,.version-duel[data-active="2"] .duel-v2 .duel-art{display:block;max-width:235px;padding-bottom:12px}
+ .version-duel[data-active="1"] .duel-v1 .duel-art-caption,.version-duel[data-active="2"] .duel-v2 .duel-art-caption{margin:-12px 5px 0;flex-direction:row;text-align:left;font-size:9px;position:relative}
+ .version-duel[data-active="1"] .duel-v1 .duel-copy h3,.version-duel[data-active="2"] .duel-v2 .duel-copy h3{font-size:30px}
+ .version-duel[data-active="1"] .duel-v1 .duel-copy>p,.version-duel[data-active="2"] .duel-v2 .duel-copy>p{font-size:13px}
+ .version-duel[data-active="1"] .duel-v1 .check-list,.version-duel[data-active="2"] .duel-v2 .check-list{font-size:12px;margin:23px 0;gap:15px}
+}
+@media(max-width:900px){
+ .hero-grid{gap:26px}
+ .hero-visual{padding-right:18px}
+ .hero .live-preview{min-height:355px}
+ .hero .app-window{min-height:383px;padding:10px}
+ .hero .app-config{padding:14px 8px}
+ .hero .live-note{font-size:8px;padding:10px;gap:7px}
+ .hero .floating-platforms .platform{width:28px;height:28px;font-size:22px}
+ .experience-grid{grid-template-columns:1fr;gap:35px}
+ .experience-copy{display:block;max-width:680px}
+ .experience-copy>.eyebrow{display:inline-flex}
+ .experience-copy .feature-list{display:grid;grid-template-columns:1fr 1fr;gap:24px 25px;margin:28px 0}
+ .product-showcase{max-width:690px;margin:auto}
+ .product-showcase .panel{padding:22px}
+ .product-showcase .panel h3{font-size:17px}
+ .product-showcase .panel p{font-size:11px}
+ .product-showcase .panel label{font-size:10px}
+ .product-showcase .input{font-size:10px;padding:9px}
+ .product-showcase .tabs{font-size:10px}
+ .product-showcase td,.product-showcase th{font-size:10px;padding:9px}
+ .product-showcase .status{font-size:9px}
+ .product-showcase .toggle-row{font-size:9px}
+ .product-showcase .obs-status{font-size:10px}
+ .product-showcase .obs-tip{font-size:9px}
+ .final-cta{grid-template-columns:minmax(120px,.7fr) minmax(0,1.7fr)}
+ .compatibility{grid-column:1/-1}
+}
+@media(max-width:700px){
+ .version-duel{--rail:62px;height:740px;border-radius:22px}
+ .duel-panel{width:calc(100% - var(--rail))}
+ .duel-rail{top:18px;left:20px;font-size:15px;padding:7px 10px;gap:8px}
+ .duel-v2 .duel-rail{right:20px}
+ .duel-rail .brand-mark{width:22px;height:26px}
+ .duel-vs{display:none}
+ .version-duel[data-active="none"] .duel-v1{z-index:3}
+ .version-duel[data-active="none"] .duel-v2 .duel-body{visibility:hidden;opacity:0;pointer-events:none}
+ .version-duel[data-active="none"] .duel-v2 .duel-rail{top:0;bottom:0;left:auto;right:0;width:var(--rail);flex-direction:column;border:0;border-radius:0;background:transparent;padding:10px}
+ .version-duel .duel-body,.version-duel[data-active="1"] .duel-v1 .duel-body,.version-duel[data-active="2"] .duel-v2 .duel-body{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:22px;padding:88px 25px 25px}
+ .version-duel .duel-copy h3,.version-duel[data-active="1"] .duel-v1 .duel-copy h3,.version-duel[data-active="2"] .duel-v2 .duel-copy h3{font-size:29px;line-height:1.3;max-width:400px;margin-bottom:10px}
+ .duel-kicker{font-size:8px;margin-bottom:8px}
+ .version-duel .duel-copy>p,.version-duel[data-active="1"] .duel-v1 .duel-copy>p,.version-duel[data-active="2"] .duel-v2 .duel-copy>p{font-size:12px;line-height:1.8}
+ .version-duel .duel-copy .check-list,.version-duel[data-active="1"] .duel-v1 .check-list,.version-duel[data-active="2"] .duel-v2 .check-list{font-size:11px;line-height:1.7;margin:18px 0;gap:10px}
+ .duel-copy .btn{font-size:12px;padding:11px 16px}
+ .duel-art{max-width:330px;align-self:center;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:14px;align-items:center;padding:0}
+ .duel-photo,.duel-v2 .duel-photo{aspect-ratio:277/330;border-width:3px;border-radius:15px}
+ .duel-art-caption{margin:0;padding:12px 9px;font-size:9px;line-height:1.8;flex-direction:column;align-items:flex-start;box-shadow:none}
+ .duel-art-caption .icon{width:27px;height:27px}
+ .duel-photo .live-label{font-size:9px;top:7px;right:7px;padding:3px 6px}
+ .duel-platforms{display:none}
+ .duel-photo .art-play{width:35px;height:35px}
+ .version-duel[data-active="1"] .duel-v2 .duel-rail,.version-duel[data-active="2"] .duel-v1 .duel-rail{gap:13px;padding:12px 6px}
+ .version-duel[data-active="1"] .duel-v2 .duel-rail .brand-mark,.version-duel[data-active="2"] .duel-v1 .duel-rail .brand-mark{width:27px;height:32px}
+ .duel-hint{font-size:10px;line-height:1.7}
+ .hint-desktop{display:none}.hint-touch{display:inline}
+}
+@media(max-width:640px){
+ .hero-grid{grid-template-columns:1fr;gap:30px}
+ .hero-copy h1{font-size:clamp(33px,8.7vw,49px)}
+ .hero-visual{width:100%;max-width:450px;padding:12px 14px 0}
+ .hero .app-window{min-height:340px;padding:9px}
+ .hero .live-preview{min-height:312px;width:43%}
+ .hero .app-config{padding:12px 8px}
+ .hero .app-top{gap:6px;margin-bottom:8px}
+ .hero .app-top b{font-size:8px}
+ .hero .script-box{margin-top:13px;padding:7px}
+ .hero .script-box p{font-size:7px}
+ .hero .live-note{margin-top:15px;font-size:8px}
+ .hero .live-note small{font-size:6px}
+ .hero .floating-platforms{right:-1px;top:55px;gap:8px}
+ .hero .floating-platforms .platform{width:26px;height:26px;font-size:20px}
+ .hero .floating-platforms .facebook{font-size:25px;padding-top:4px}
+ .hero .floating-platforms .shopee{font-size:16px}
+ .hero .live-comments{left:5px;right:5px;bottom:40px}
+ .hero .live-comments>span{font-size:6px}
+ .audience .mascot-peek{margin:15px 5px -15px}
+ .experience-copy .feature-list{grid-template-columns:1fr;gap:21px}
+ .product-showcase{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:12px;padding:9px 0}
+ .product-showcase .panel{padding:15px 12px;border-radius:14px}
+ .product-showcase .panel h3{font-size:12px}
+ .product-showcase .panel p{font-size:8px;line-height:1.8}
+ .product-showcase .panel label{font-size:8px}
+ .product-showcase .input{font-size:8px;padding:7px;min-height:27px}
+ .product-showcase .tabs{font-size:7px;gap:4px}
+ .product-showcase td,.product-showcase th{font-size:7px;padding:7px 4px}
+ .product-showcase .status{font-size:6px;padding:4px}
+ .product-showcase .toggle-row{font-size:7px;gap:9px}
+ .product-showcase .obs-status,.product-showcase .obs-tip{font-size:7px;line-height:1.8;flex-wrap:wrap}
+ .product-showcase .ui-caption{font-size:8px;margin-top:5px}
+ .product-showcase .textarea{font-size:7px!important}
+ .final-cta{display:flex;gap:14px}
+ .cta-mascot{padding:18px 40px 0}
+ .cta-mascot>.brand-mark{width:92px;height:110px}
+ .windows-box{flex-wrap:nowrap}
+}
+@media(max-width:380px){
+ .version-duel{--rail:52px;height:760px}
+ .version-duel .duel-body,.version-duel[data-active="1"] .duel-v1 .duel-body,.version-duel[data-active="2"] .duel-v2 .duel-body{padding-inline:18px;gap:19px}
+ .version-duel .duel-copy h3,.version-duel[data-active="1"] .duel-v1 .duel-copy h3,.version-duel[data-active="2"] .duel-v2 .duel-copy h3{font-size:25px}
+ .version-duel .duel-copy .check-list,.version-duel[data-active="1"] .duel-v1 .check-list,.version-duel[data-active="2"] .duel-v2 .check-list{font-size:10px}
+ .duel-art{gap:9px}
+ .duel-art-caption{font-size:8px;padding:8px}
+ .product-showcase{grid-template-columns:1fr}
+ .product-showcase .account-window{grid-column:auto}
+ .product-showcase .panel{padding:18px}
+ .product-showcase .panel h3{font-size:16px}
+ .product-showcase .panel p,.product-showcase .panel label,.product-showcase .input{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.duel-panel,.duel-body,.duel-rail,.duel-vs{transition:none!important}}

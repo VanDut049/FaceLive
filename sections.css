@@ -1,0 +1,110 @@
+/* Real img elements make audience imagery independent of CSS crops/background variables. */
+.audience-card{overflow:visible}
+.audience-card>.audience-image{display:block;width:100%;height:auto;aspect-ratio:322/282;object-fit:cover;object-position:center;border-radius:16px;background:#eeebf6}
+.audience-card>.audience-seller{object-position:70% 50%}
+.audience-card>.audience-creator{object-position:70% 48%}
+.audience-heading{display:flex;align-items:center;justify-content:center;gap:16px}
+.audience-heading>.brand-mark{width:44px;height:51px;flex-shrink:0;transform:rotate(-7deg)}
+.audience-title{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;margin:14px 0 8px;padding-inline:5px}
+.audience-card .audience-title .icon-bubble{z-index:1;margin:0;width:38px;height:38px;border:0;box-sizing:border-box;flex-shrink:0}
+.audience-card .audience-title .icon-bubble .icon{width:22px;height:22px}
+.audience-card .audience-title h3{min-height:0;display:block;line-height:1.45;margin:0;text-align:left;font-size:17px;letter-spacing:-.04em}
+.audience-card p{max-width:265px;margin:auto;min-height:70px}
+.logo{gap:0;letter-spacing:-1.3px}
+.logo>span{margin-left:-1px}
+.header .logo{gap:0}
+
+/* Hero reference layout: the cutout is a separate figure beside the app, without a card. */
+.hero .container{width:min(1480px,calc(100% - 64px))}
+.hero-grid{grid-template-columns:minmax(0,.88fr) minmax(0,1.25fr);gap:28px}
+.hero .hero-side-by-side{width:104%;margin-left:-2%;aspect-ratio:1.35;isolation:isolate;perspective:1400px}
+.hero-side-by-side .hero-interface{position:absolute;width:96%;height:auto;left:0;top:10%;z-index:1}
+.hero-side-by-side .hero-person{position:absolute;right:0;bottom:3%;width:auto;height:83%;max-width:28%;object-fit:contain;object-position:bottom;z-index:3;filter:drop-shadow(0 12px 12px #4f3d7c14);animation:hero-person-arrive 1150ms cubic-bezier(.16,1,.3,1) 350ms both}
+.hero-side-by-side .hero-platform-cloud{inset:0;display:block;z-index:4;pointer-events:none}
+.hero-side-by-side .platform-live{position:absolute;display:grid;place-items:center;width:58px;height:58px;padding:12px;border-radius:18px;gap:0;box-shadow:0 12px 28px #51487718;animation:platform-arrive 850ms cubic-bezier(.16,1,.3,1) both,hero-platform-float 5200ms ease-in-out 1700ms infinite}
+.hero-side-by-side .platform-live-1{--tilt:-9deg;right:1.5%;top:32%;animation-delay:650ms,1700ms}
+.hero-side-by-side .platform-live-2{--tilt:7deg;right:2%;top:68%;animation-delay:800ms,2200ms}
+.hero-side-by-side .platform-live-3{--tilt:-6deg;right:25%;bottom:3%;animation-delay:950ms,2700ms}
+.hero-side-by-side .platform-live>svg{width:34px;height:34px}
+.hero-side-by-side .platform-live>span{display:none}
+.hero-side-by-side .platform-live b{font-size:8px}
+.hero-side-by-side .platform-live small{font-size:5px;margin-top:3px}
+.hero-side-by-side .spark-one{top:15%;right:9%;left:auto;z-index:0}
+@keyframes hero-person-arrive{from{opacity:0;transform:translate3d(42px,22px,0) scale(.96)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes hero-platform-float{0%,100%{transform:translate3d(0,0,0) rotate(var(--tilt))}50%{transform:translate3d(0,-8px,0) rotate(calc(var(--tilt) + 3deg))}}
+
+/* Four-step motion: staggered reveal, connecting flow, floating icons and broadcast ripple. */
+.steps-grid{position:relative;isolation:isolate}
+.steps-grid:before{content:none;display:none}
+.step-card{--step-delay:0ms;overflow:visible;perspective:800px}
+.step-card:nth-child(2){--step-delay:140ms}.step-card:nth-child(3){--step-delay:280ms}.step-card:nth-child(4){--step-delay:420ms}
+.step-card .icon-bubble{position:relative;isolation:isolate}
+.step-card .icon-bubble:before{content:'✦';position:absolute;right:-8px;top:-7px;color:#ae90ff;font-size:17px}
+.steps.has-step-motion .section-head{opacity:0;transform:translate3d(0,22px,0);transition:opacity 700ms,transform 850ms cubic-bezier(.16,1,.3,1)}
+.steps.has-step-motion .step-card{opacity:0;transform:translate3d(0,45px,0) rotateX(7deg) scale(.97);transition:opacity 750ms ease var(--step-delay),transform 1000ms cubic-bezier(.16,1,.3,1) var(--step-delay)}
+.steps.steps-revealed .section-head,.steps.steps-revealed .step-card{opacity:1;transform:translate3d(0,0,0) rotateX(0) scale(1)}
+.steps.steps-revealed .step-card .icon-bubble{animation:step-icon-float 4400ms ease-in-out calc(var(--step-delay) + 1000ms) infinite;animation-play-state:paused}
+.steps.steps-in-view .step-card .icon-bubble{animation-play-state:running}
+.steps.steps-revealed .step-arrow .icon{animation:step-flow 1900ms ease-in-out calc(var(--step-delay) + 900ms) infinite;animation-play-state:paused}
+.steps.steps-in-view .step-arrow .icon{animation-play-state:running}
+.steps.steps-revealed .step-card:last-child .icon-bubble:after{content:'';position:absolute;inset:2px;border:1.5px solid #b298ff;border-radius:50%;animation:broadcast-ring 2500ms ease-out 1600ms infinite;animation-play-state:paused;z-index:-1}
+.steps.steps-in-view .step-card:last-child .icon-bubble:after{animation-play-state:running}
+.step-card:hover{box-shadow:0 18px 42px #7255bb12;border-color:#d6c8ff}
+@keyframes step-icon-float{0%,100%{transform:translate3d(0,0,0) rotate(-2deg)}50%{transform:translate3d(0,-7px,0) rotate(2deg)}}
+@keyframes step-flow{0%,100%{opacity:.45;transform:translate3d(-3px,0,0)}55%{opacity:1;transform:translate3d(5px,0,0)}}
+@keyframes broadcast-ring{0%{transform:scale(.95);opacity:.6}85%,100%{transform:scale(1.65);opacity:0}}
+
+/* Independent transparent UI layers share the page background, with a larger staff figure. */
+.experience .container{width:min(1480px,calc(100% - 64px))}
+.experience-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:28px}
+.experience .experience-art-composition{width:100%;margin:0;max-width:none}
+.experience-art-stage{position:relative;isolation:isolate;width:100%;aspect-ratio:1.28}
+.experience-glow{position:absolute;inset:6% 8% 4% -2%;border-radius:50%;background:radial-gradient(ellipse,#e6dfff90,transparent 70%);z-index:0}
+.experience-layer{position:absolute;display:block;object-fit:contain;object-position:center;filter:drop-shadow(0 12px 15px #5e4d9b14);height:auto}
+.layer-accounts{left:3%;top:2%;width:73%;z-index:1}
+.layer-config{left:0;top:39%;width:48%;z-index:3}
+.layer-obs{left:40%;top:48%;width:31%;z-index:4}
+.experience-layered .experience-staff{position:absolute;right:-1%;bottom:0;height:96%;width:33%;object-fit:contain;object-position:center bottom;z-index:5;filter:drop-shadow(0 12px 15px #51447016)}
+@media(max-width:1150px){
+ .audience-card h3{font-size:17px;min-height:50px}.audience-card p{min-height:75px}
+ .hero-side-by-side .platform-live{padding:10px;width:50px;height:50px;border-radius:16px}.hero-side-by-side .platform-live>svg{width:30px;height:30px}.hero-side-by-side .platform-live b{font-size:7px}
+}
+@media(max-width:900px){
+ .audience-card h3{font-size:20px;min-height:55px}.audience-card p{min-height:52px}
+ .hero-side-by-side .hero-platform-cloud{inset:0}
+ .hero-side-by-side .platform-live{padding:8px;width:44px;height:44px;border-radius:14px}.hero-side-by-side .platform-live>svg{width:28px;height:28px}.hero-side-by-side .platform-live>span{display:none}
+ .steps-grid:before{display:none}
+ .experience .experience-art-composition{width:100%;margin:0;max-width:800px}
+ .experience-grid{grid-template-columns:1fr}
+ .hero-grid{grid-template-columns:1fr 1.12fr;gap:22px}
+ .experience-art-stage{max-width:860px;margin:auto}
+}
+@media(max-width:640px){
+ .audience-card>.audience-image{border-radius:12px;aspect-ratio:1.08}
+ .audience-card h3{font-size:14px;min-height:46px;padding-inline:3px}.audience-card p{min-height:70px;font-size:11px}
+ .hero .container,.experience .container{width:calc(100% - 36px)}
+ .hero-grid{grid-template-columns:1fr}
+ .hero .hero-side-by-side{width:108%;margin-left:-4%;aspect-ratio:1.35}
+ .hero-side-by-side .hero-person{height:84%;right:0;bottom:1%}
+ .hero-side-by-side .hero-interface{width:92%;top:10%}
+ .hero-side-by-side .hero-platform-cloud{inset:0}
+ .hero-side-by-side .platform-live{padding:8px;width:42px;height:42px;border-radius:13px}.hero-side-by-side .platform-live>svg{width:26px;height:26px}.hero-side-by-side .platform-live>span{display:none}
+ .experience .experience-art-composition{width:104%;margin-left:-2%}
+ .experience-art-stage{aspect-ratio:1.18}
+ .layer-config{top:38%;width:49%}
+ .layer-obs{top:46%;width:32%}
+ .experience-layered .experience-staff{height:94%;width:34%}
+ .audience-heading{gap:9px}
+ .audience-heading>.brand-mark{width:30px;height:36px}
+ .audience-title{gap:6px;padding-inline:0;min-height:64px;margin-top:10px}
+ .audience-card .audience-title .icon-bubble{width:28px;height:28px}
+ .audience-card .audience-title .icon-bubble .icon{width:17px;height:17px}
+ .audience-card .audience-title h3{font-size:12px}
+ .step-card .icon-bubble:before{font-size:14px;right:-5px}
+}
+@media(max-width:380px){.audience-card h3{font-size:13px}.hero-side-by-side .platform-live>span{display:none}.hero-side-by-side .platform-live>svg{width:21px;height:21px}}
+@media(prefers-reduced-motion:reduce){
+ .hero-person,.hero-side-by-side .platform-live,.steps .step-card .icon-bubble,.steps .step-arrow .icon,.steps .step-card:last-child .icon-bubble:after{animation:none!important}
+ .steps.has-step-motion .section-head,.steps.has-step-motion .step-card{opacity:1;transform:none;transition:none!important}
+ .steps.has-step-motion .steps-grid:before{transform:scaleX(1);transition:none}
+}

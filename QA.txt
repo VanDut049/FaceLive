@@ -1,0 +1,19 @@
+LATEST UPDATE: Clean steps, floating platforms, shared mascot.
+PASS: Removed cross-card line.
+PASS: Platform badges float around cutout.
+PASS: One mascot master across all visible software imagery.
+PASS: Static renders reviewed and all three verification scripts passed.
+IMAGE PROVENANCE: IMAGE-PROMPTS-BRAND.md.
+
+﻿FACELIVE — LAYERED EXPERIENCE / LARGER HERO / WORDMARK UPDATE
+PASS: Removed the interface-detail caption/button and obsolete modal handler.
+PASS: Three independently generated transparent PNG windows: accounts (back), configuration and OBS (front).
+PASS: Larger experience layout and TQA staff figure; no opaque page-background rectangle.
+PASS: Hero app image extracted from original reference 11.png, preserving controls; larger image allocation.
+PASS: Navbar/brand wordmark uses F icon + acelive with no duplicate text F.
+PASS: Audience mascot adjacent to section h2; all four card icons adjacent to their titles.
+PASS: PNG alpha=0 at outer corners and top/left edges for all four new images.
+PASS: Rendered and inspected experience layers, enlarged hero and wordmark/title alignment.
+PASS: JS syntax, anchors/resources/IDs, standalone image embedding, V1/V2 and workflow reveal logic.
+LIMIT: Static image reviews are not browser screenshots; no connected browser visual verification or real FPS benchmark.
+IMAGE PROVENANCE: Built-in image_gen, exact prompts in IMAGE-PROMPTS-LAYERS.md.

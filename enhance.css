@@ -1,0 +1,563 @@
+/* ============================================================
+   Facelive — enhancements: bilingual VI/EN, channel logos,
+   hub cluster, in-page download view, and motion effects.
+   Loaded last so it layers over styles.css/sections.css.
+   ============================================================ */
+
+/* Reserve scrollbar space so opening the download view (which locks
+   body scroll) never shifts the layout horizontally. */
+html{scrollbar-gutter:stable}
+
+/* ---------- 1. Bilingual language visibility ---------- */
+[data-lang="vi"] [lang="en"],
+[data-lang="en"] [lang="vi"]{display:none!important}
+
+/* ---------- 2. Header right cluster + language dropdown ---------- */
+.nav-right{display:flex;align-items:center;gap:14px}
+.lang-switch{position:relative}
+.lang-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;font-size:13px;font-weight:600;color:var(--ink);line-height:1;transition:border-color .2s,box-shadow .2s}
+.lang-btn:hover{border-color:#c9bdff;box-shadow:0 6px 16px #5b38db14}
+.lang-btn .icon{width:17px;height:17px;color:var(--purple)}
+.lang-btn .chev{width:14px;height:14px;transition:transform .25s}
+.lang-switch.open .lang-btn .chev{transform:rotate(180deg)}
+.lang-current{min-width:16px;text-align:center}
+.lang-menu{position:absolute;right:0;top:calc(100% + 8px);list-style:none;margin:0;padding:6px;background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 20px 45px #3a2a8a22;min-width:184px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s;z-index:40}
+.lang-switch.open .lang-menu{opacity:1;visibility:visible;transform:none}
+.lang-menu li{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;transition:background .15s}
+.lang-menu li:hover{background:#f3efff}
+.lang-menu li[aria-selected="true"]{color:var(--purple);font-weight:600;background:#f1ecff}
+.lang-menu .flag{font-size:17px;line-height:1}
+
+/* ---------- 3. Accurate channel logos (official brand tiles) ---------- */
+.platform{overflow:hidden}
+.platform svg{width:58%;height:58%;fill:#fff;display:block}
+.platform.tiktok{background:#010101;text-shadow:none}
+.platform.facebook{background:#0866FF;font-size:0}
+.platform.shopee{background:#EE4D2D;font-size:0}
+.platform.youtube{background:#FF0000;font-size:0}
+.platform.instagram{background:radial-gradient(circle at 28% 100%,#FEDA75 0,#FA7E1E 22%,#D62976 48%,#962FBF 72%,#4F5BD5 100%);font-size:0}
+td .platform svg,.setup-window .input .platform svg{width:66%;height:66%}
+
+/* ---------- 4. Compact channel row ---------- */
+.platform-strip-head h3{font-size:23px}
+.platform-strip-head p{font-size:13px;margin-top:4px}
+.platform-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:22px}
+.pf-chip{display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border:1px solid #ece7ff;background:#fff;border-radius:14px;font-size:14px;font-weight:600;white-space:nowrap;box-shadow:0 8px 20px #6a4ad00c;transition:transform .25s,box-shadow .25s}
+.pf-chip:hover{transform:translateY(-3px);box-shadow:0 14px 28px #6a4ad020}
+.pf-chip .platform{width:30px;height:30px;border-radius:9px;box-shadow:none;flex-shrink:0}
+@media (max-width:640px){.platform-row{gap:9px}.pf-chip{padding:9px 15px;font-size:13px}}
+
+/* ---------- 5. In-page download view ---------- */
+.download-view{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse at 50% -10%,#efe9ff 0,transparent 55%),linear-gradient(180deg,#f6f4ff,#fafaff 45%,#fdfdff)}
+.download-view[hidden]{display:none}
+.download-view:not([hidden]){animation:dvFade .42s cubic-bezier(.2,.7,.2,1)}
+@keyframes dvFade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+body.download-open{overflow:hidden}
+.dv-header{position:sticky;top:0;z-index:5;background:#fdfdffe6;border-bottom:1px solid #e7e6ff88;backdrop-filter:blur(18px)}
+.dv-nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:24px}
+.dv-links{display:flex;gap:30px;font-size:13px;font-weight:500}
+.dv-links a{color:#4a4e6b;transition:color .2s}
+.dv-links a:hover{color:var(--purple)}
+.dv-actions{display:flex;align-items:center;gap:12px}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink);padding:10px 16px;font-size:13px}
+.btn.ghost:hover{background:#f3efff;border-color:#c9bdff;transform:translateY(-1px)}
+.dv-back .icon{width:17px;height:17px}
+.dv-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:10px}
+.dv-body{padding:54px 0 30px}
+.dv-hero{text-align:center;max-width:760px;margin:0 auto 46px}
+.dv-hero .eyebrow{margin-bottom:20px}
+.dv-hero h1{font-size:clamp(34px,4vw,54px);margin:0 0 16px}
+.dv-hero p{font-size:17px;line-height:1.75;max-width:620px;margin:0 auto;color:var(--muted)}
+
+/* OS cards */
+.os-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:center;max-width:1040px;margin:0 auto 70px}
+.os-card{position:relative;background:#ffffffe8;border:1px solid #ece9ff;border-radius:26px;padding:38px 28px 30px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 16px 44px #6a54c80e;transition:transform .25s,box-shadow .25s,border-color .25s}
+.os-card:hover{transform:translateY(-6px);box-shadow:0 26px 60px #6a54c81c}
+.os-card.featured{transform:scale(1.045);border:1.5px solid #c7b6ff;box-shadow:0 30px 70px #5b38db24;background:#fff;z-index:2}
+.os-card.featured:hover{transform:scale(1.045) translateY(-6px)}
+.os-card.you{border-color:#a98dff}
+.os-pill{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gradient);color:#fff;font-size:11px;font-weight:600;letter-spacing:.01em;padding:7px 16px;border-radius:50px;white-space:nowrap;box-shadow:0 10px 22px #5b38db33}
+.os-icon{display:grid;place-items:center;width:74px;height:74px;border-radius:22px;background:linear-gradient(140deg,#f3f0ff,#e9e3ff);color:var(--purple);margin-bottom:8px}
+.os-icon svg{width:38px;height:38px}
+.os-card.featured .os-icon{background:linear-gradient(140deg,#efe9ff,#ddd0ff);color:#4c27c9}
+.os-card h3{font-size:23px;letter-spacing:-.03em}
+.os-note{font-size:12.5px;color:var(--muted);margin:0 0 14px;min-height:18px}
+.os-get{width:100%;margin-top:4px}
+.os-get.btn.primary{padding:13px 18px;font-size:14px}
+.btn.ghost.os-get{margin-top:10px;font-weight:600;color:#4a4e6b}
+.os-hint{font-size:11px;color:var(--purple);line-height:1.5;margin:12px 2px 0;max-width:230px}
+.os-ver{display:block;font-size:11px;color:#959be0;margin-top:14px}
+
+/* Requirements */
+.req-section{max-width:1040px;margin:0 auto}
+.req-section .section-head{margin-bottom:30px}
+.req-section .section-head h2{font-size:clamp(26px,2.7vw,36px)}
+.req-wrap{border:1px solid #ece9ff;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 14px 40px #6a54c80d}
+.req-table{width:100%;border-collapse:collapse;font-size:14px;text-align:left}
+.req-table th{background:#f7f5ff;color:#7a7aa0;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:16px 22px;border-bottom:1px solid #eceaff}
+.req-table td{padding:17px 22px;border-bottom:1px solid #f1eff9;color:#3f4668;line-height:1.5;vertical-align:top}
+.req-table tr:last-child td{border-bottom:0}
+.req-table tbody tr:hover{background:#faf9ff}
+.req-table .req-k{font-weight:600;color:var(--ink);width:160px}
+.req-table .req-rec{color:var(--purple);font-weight:500}
+.req-note{max-width:760px;margin:22px auto 0;text-align:center;font-size:12.5px;color:#9195b4;line-height:1.7}
+
+/* download-view footer */
+.dv-footer{border-top:1px solid #eae7fa;background:#fbfaffcc;backdrop-filter:blur(8px)}
+.dv-footer .container{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;font-size:12px;color:#8d90ae;flex-wrap:wrap}
+.dv-foot-logo .logo{font-size:20px}
+.dv-foot-logo .brand-mark{width:24px;height:28px}
+.dv-footer .container>span{flex:1;min-width:200px;text-align:center}
+.dv-footer button{border:0;background:none;color:var(--purple);font-weight:600;cursor:pointer}
+
+/* ---------- 6. Motion / effects ---------- */
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.four-grid .reveal.in:nth-child(2){transition-delay:.08s}
+.four-grid .reveal.in:nth-child(3){transition-delay:.16s}
+.four-grid .reveal.in:nth-child(4){transition-delay:.24s}
+.os-grid .reveal.in:nth-child(2){transition-delay:.1s}
+.os-grid .reveal.in:nth-child(3){transition-delay:.2s}
+
+/* hero aurora */
+.hero{position:relative}
+.hero>.container,.hero>.scroll-cue{position:relative;z-index:1}
+.aurora{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.aurora span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;mix-blend-mode:multiply}
+.aurora span:nth-child(1){width:460px;height:460px;top:-120px;right:4%;background:radial-gradient(circle,#c9b7ff,transparent 70%);animation:fl-float1 16s ease-in-out infinite}
+.aurora span:nth-child(2){width:380px;height:380px;bottom:-140px;left:2%;background:radial-gradient(circle,#b7c4ff,transparent 70%);animation:fl-float2 19s ease-in-out infinite}
+.aurora span:nth-child(3){width:300px;height:300px;top:30%;left:38%;background:radial-gradient(circle,#e6ccff,transparent 70%);animation:fl-float1 22s ease-in-out infinite}
+@keyframes fl-float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-26px,24px) scale(1.08)}}
+@keyframes fl-float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-22px) scale(1.1)}}
+
+/* primary button shine */
+.btn.primary{position:relative;overflow:hidden}
+.btn.primary>*{position:relative;z-index:1}
+.btn.primary::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;z-index:0;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);pointer-events:none}
+.btn.primary:hover::after{animation:fl-shine .85s ease}
+@keyframes fl-shine{to{left:140%}}
+
+/* logo hover life */
+.logo .brand-mark{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.logo:hover .brand-mark{transform:scale(1.08) rotate(-4deg)}
+
+/* floating platform chips gentle bob (hero) */
+.floating-platforms .platform{animation:fl-bob 4.5s ease-in-out infinite}
+.floating-platforms .platform:nth-child(2){animation-delay:.9s}
+.floating-platforms .platform:nth-child(3){animation-delay:1.8s}
+@keyframes fl-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* ---------- 6a. Version duel rails (V1/V2 label + mascot removed) ---------- */
+/* Hide the now-empty corner pill in the default state; keep the rail only on the
+   collapsed panel, where its expand arrow gives a clear affordance. */
+.cinematic-duel .duel-rail{display:none}
+.version-duel[data-active="1"] .duel-v2 .duel-rail,
+.version-duel[data-active="2"] .duel-v1 .duel-rail{display:flex}
+.cinematic-duel .duel-rail .rail-arrow{color:var(--purple);opacity:.75}
+
+/* ---------- 6b. Features / experience section effects ---------- */
+/* interactive feature list */
+.feature-list>div{padding:11px 13px;margin:-11px -13px;border-radius:15px;cursor:default;transition:background .28s,transform .28s,box-shadow .28s}
+.feature-list>div:hover{background:#faf8ff;transform:translateX(6px);box-shadow:0 10px 26px #6a4ad010}
+.feature-list .icon-bubble{transition:transform .3s cubic-bezier(.2,.7,.2,1),background .3s,color .3s,box-shadow .3s}
+.feature-list>div:hover .icon-bubble{background:var(--gradient);color:#fff;transform:scale(1.1) rotate(-4deg);box-shadow:0 10px 22px #5b38db33}
+.feature-list>div:hover h3{color:var(--purple)}
+.feature-list h3{transition:color .25s}
+/* app mockup panels: lift & pull forward on hover */
+.product-showcase .panel{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.account-window:hover{transform:rotate(-4deg) translateY(-9px) scale(1.02);z-index:6;box-shadow:0 34px 72px #5b38db26}
+.setup-window:hover{transform:rotate(1deg) translateY(-9px) scale(1.02);z-index:6;box-shadow:0 34px 72px #5b38db26}
+.obs-window:hover{transform:rotate(-2deg) translateY(-9px) scale(1.02);z-index:6;box-shadow:0 34px 72px #5b38db26}
+/* breathing glow behind the showcase */
+.product-showcase::before{animation:fl-breathe 7s ease-in-out infinite}
+@keyframes fl-breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.07);opacity:.8}}
+/* experience section soft moving aura */
+.experience{position:relative;overflow:hidden}
+.experience::after{content:'';position:absolute;width:520px;height:520px;right:-140px;top:8%;z-index:0;border-radius:50%;background:radial-gradient(circle,#ece4ff,transparent 68%);filter:blur(30px);opacity:.6;animation:fl-float1 20s ease-in-out infinite;pointer-events:none}
+.experience>.container{position:relative;z-index:1}
+
+/* ---------- 7. Responsive ---------- */
+@media (max-width:860px){
+  .os-grid{grid-template-columns:1fr;max-width:420px;gap:30px}
+  .os-card.featured{transform:none}
+  .os-card.featured:hover{transform:translateY(-6px)}
+  .dv-links{display:none}
+  .req-table .req-k{width:auto}
+}
+@media (max-width:640px){
+  .nav-right{gap:8px}
+  .lang-btn{padding:8px 9px}
+  .dv-nav{height:66px}
+  .dv-body{padding:34px 0 20px}
+  .req-table{font-size:12.5px}
+  .req-table th,.req-table td{padding:13px 14px}
+}
+
+/* ---------- 8. Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .aurora span,.floating-platforms .platform{animation:none}
+  .product-showcase::before,.experience::after{animation:none}
+  .btn.primary:hover::after{animation:none}
+  .download-view:not([hidden]){animation:none}
+}
+
+/* ============================================================
+   9. Product landing views (FaceLiveAI / FaceLiveStream) + sign-up
+   ============================================================ */
+.product-view{--acc:var(--purple);position:fixed;inset:0;z-index:68;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse at 50% -10%,#efe9ff 0,transparent 55%),linear-gradient(180deg,#f8f6ff,#fafaff 45%,#fdfdff)}
+.product-view[data-tint="stream"]{--purple:#2f6fe0;--gradient:linear-gradient(120deg,#5b8ef2,#2f6fe0);--acc:#2f6fe0;
+  background:radial-gradient(ellipse at 50% -10%,#e4effc 0,transparent 55%),linear-gradient(180deg,#f3f8ff,#f9fbff 45%,#fdfeff)}
+.product-view[hidden]{display:none}
+.product-view:not([hidden]){animation:dvFade .42s cubic-bezier(.2,.7,.2,1)}
+body.product-open{overflow:hidden}
+.pv-header{position:sticky;top:0;z-index:5;background:#fdfdffe6;border-bottom:1px solid #e7e6ff88;backdrop-filter:blur(18px)}
+.pv-nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:24px}
+.pv-links{display:flex;gap:28px;font-size:13px;font-weight:500}
+.pv-links a{color:#4a4e6b;transition:color .2s}
+.pv-links a:hover{color:var(--acc)}
+.pv-actions{display:flex;align-items:center;gap:12px}
+.pv-dlbtn{padding:10px 16px;font-size:13px}
+.pv-back .icon{width:17px;height:17px}
+.pv-scroll{flex:1;overflow-y:auto;overflow-x:hidden}
+.product-view .section{padding:74px 0}
+
+/* hero */
+.pv-hero{padding:64px 0 54px!important;overflow:hidden;position:relative}
+.pv-hero>.container{position:relative;z-index:1}
+.pv-hero-grid{display:grid;grid-template-columns:1fr 1.04fr;gap:44px;align-items:center}
+.pv-badge{display:inline-flex;gap:9px;align-items:center;padding:7px 16px;border-radius:50px;background:#efebff;color:var(--acc);font-size:12px;font-weight:600;line-height:1.3}
+.product-view[data-tint="stream"] .pv-badge{background:#e4effc}
+.pv-hero h1{font-size:clamp(31px,3.5vw,49px);margin:22px 0 18px;line-height:1.18}
+.pv-sub{font-size:17px;line-height:1.8;max-width:505px;color:var(--muted)}
+.pv-hero .hero-actions{margin-top:30px}
+.pv-note{display:flex;gap:8px;align-items:center;color:#8790aa;font-size:12px;margin-top:20px;line-height:1.5}
+.pv-note .icon{width:17px;height:17px;color:var(--acc);flex-shrink:0}
+.pv-hero-art{position:relative;isolation:isolate}
+.pv-hero-art img{width:100%;height:auto;border-radius:20px;box-shadow:0 30px 65px #6761cb21;border:1px solid #fff;display:block}
+.pv-art-glow{position:absolute;inset:-7% -5%;z-index:-1;border-radius:50%;background:radial-gradient(circle at 60% 40%,#d9ccff66,transparent 62%);filter:blur(34px)}
+.product-view[data-tint="stream"] .pv-art-glow{background:radial-gradient(circle at 60% 40%,#bcd5fb66,transparent 62%)}
+.pv-chip{position:absolute;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #ece7ff;border-radius:11px;padding:8px 12px;font-size:12px;font-weight:600;box-shadow:0 12px 26px #5551be1c;z-index:2}
+.pv-chip .icon{width:15px;height:15px;color:var(--acc)}
+.pv-chip-live{top:16px;left:-14px}
+.pv-chip-live .icon{color:#ff4056}
+.pv-chip-ai{bottom:20px;right:-12px}
+
+/* pain */
+.pv-pain{background:radial-gradient(at 6% 30%,#f4f1ff,transparent 42%)}
+.product-view[data-tint="stream"] .pv-pain{background:radial-gradient(at 6% 30%,#ecf3ff,transparent 42%)}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pain-card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:26px 24px;box-shadow:0 12px 34px #6a54c80a}
+.pain-num{font-size:25px;font-weight:800;color:var(--acc);opacity:.4;letter-spacing:-.04em}
+.pain-card p{font-size:16px;color:var(--ink);line-height:1.55;margin-top:9px;font-weight:600}
+
+/* specs */
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.spec-card{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);background:#fff;border-radius:16px;padding:18px;box-shadow:0 10px 28px #6a54c808}
+.spec-ico{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(140deg,#f3f0ff,#e9e3ff);color:var(--acc);flex-shrink:0}
+.product-view[data-tint="stream"] .spec-ico{background:linear-gradient(140deg,#eaf2ff,#dbe9ff)}
+.spec-ico .icon{width:22px;height:22px}
+.spec-card b{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-bottom:4px;letter-spacing:.02em}
+.spec-card>div>span{font-size:14px;color:var(--ink);line-height:1.5;font-weight:600;display:block}
+.spec-note{display:flex;gap:11px;align-items:flex-start;margin-top:24px;max-width:780px;font-size:13px;color:#8790aa;line-height:1.75}
+.spec-note .icon{width:20px;height:20px;color:var(--acc);flex-shrink:0;margin-top:2px}
+
+/* download band */
+.pv-dl-band{border:1px solid #f1edff;border-radius:30px;padding:38px 40px;display:grid;grid-template-columns:1.5fr auto;gap:28px 32px;align-items:center;
+  background:radial-gradient(at 0 100%,#ddd4ff55,transparent 42%),linear-gradient(110deg,#f7f4ff,#f2efff 70%,#f7f5ff)}
+.product-view[data-tint="stream"] .pv-dl-band{border-color:#e6eefc;background:radial-gradient(at 0 100%,#cfe0fb55,transparent 42%),linear-gradient(110deg,#f1f6ff,#eef4ff 70%,#f3f8ff)}
+.pv-dl-band h2{font-size:clamp(26px,2.6vw,34px);margin:12px 0 10px}
+.pv-dl-band>div:first-child p{font-size:14px;line-height:1.7;max-width:560px}
+.pv-dl-actions{display:flex;flex-direction:column;gap:10px;min-width:210px}
+.pv-dl-os{grid-column:1/-1;display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#59668b;border-top:1px solid #e7e0ff;padding-top:18px;margin-top:4px}
+.product-view[data-tint="stream"] .pv-dl-os{border-top-color:#dbe7fb}
+.pv-dl-os>span{display:flex;align-items:center;gap:7px}
+.pv-dl-os .icon{width:19px;height:19px;color:var(--acc);background:#eee9ff;border-radius:50%;padding:3px;stroke-width:3}
+.product-view[data-tint="stream"] .pv-dl-os .icon{background:#e5eefc}
+
+/* product footer (same look as download footer) */
+.pv-footer{border-top:1px solid #eae7fa;background:#fbfaffcc;backdrop-filter:blur(8px)}
+.pv-footer .container{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;font-size:12px;color:#8d90ae;flex-wrap:wrap}
+.pv-foot-logo .logo{font-size:20px}
+.pv-foot-logo .brand-mark{width:24px;height:28px}
+.pv-footer .container>span{flex:1;min-width:200px;text-align:center}
+.pv-footer button{border:0;background:none;color:var(--acc);font-weight:600;cursor:pointer}
+
+/* ---------- Sign-up form (replaces main FAQ) ---------- */
+.signup{background:radial-gradient(at 90% 15%,#f0edff,transparent 45%),radial-gradient(at 8% 85%,#eef2ff,transparent 45%)}
+.signup-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:44px;align-items:start;max-width:1000px;margin:0 auto}
+.signup-steps{display:flex;flex-direction:column;gap:22px;padding-top:6px}
+.su-step{display:flex;gap:15px;align-items:flex-start}
+.su-num{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+.su-step p{font-size:15px;line-height:1.6;color:var(--ink);margin:4px 0 0}
+.su-trust{display:flex;gap:10px;align-items:flex-start;margin-top:6px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.su-trust .icon{width:20px;height:20px;color:var(--purple);flex-shrink:0}
+.signup-form{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 20px 50px #6a54c810}
+.su-field{margin-bottom:16px}
+.su-field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.su-field input,.su-select select{width:100%;border:1px solid #e2e6f4;border-radius:12px;background:#fbfcff;padding:13px 15px;font-size:14px;color:var(--ink);transition:border-color .2s,box-shadow .2s;font-family:inherit}
+.su-field input:focus,.su-select select:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px #5b38db1f}
+.su-field.invalid input{border-color:#e4484d;background:#fff6f6}
+.su-err{display:none;color:#d23a3f;font-size:12px;margin-top:6px}
+.su-field.invalid .su-err{display:block}
+.su-select{position:relative}
+.su-select select{appearance:none;-webkit-appearance:none;cursor:pointer}
+.su-select>span{position:absolute;right:15px;top:50%;transform:translateY(-50%);pointer-events:none;color:#8790aa;font-size:14px}
+.su-submit{width:100%;margin-top:8px}
+.su-ok{text-align:center;padding:12px 4px}
+.su-ok-ico{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#e4f8ec;color:#16a34a;margin-bottom:12px}
+.su-ok-ico .icon{width:28px;height:28px;stroke-width:2.6}
+.su-ok b{font-size:20px;display:block;margin-bottom:8px}
+.su-ok p{font-size:14px;color:var(--muted);line-height:1.7;max-width:360px;margin:0 auto}
+.signup-form.sent .su-field,.signup-form.sent .su-submit{display:none}
+.signup-form.sent .su-ok{display:block}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .pv-hero-grid{grid-template-columns:1fr;gap:30px}
+  .pv-hero-art{max-width:560px}
+  .pain-grid,.spec-grid{grid-template-columns:1fr 1fr}
+  .signup-grid{grid-template-columns:1fr;gap:28px;max-width:560px}
+  .pv-dl-band{grid-template-columns:1fr}
+  .pv-dl-actions{min-width:0}
+}
+@media (max-width:860px){ .pv-links{display:none} }
+@media (max-width:640px){
+  .pain-grid,.spec-grid{grid-template-columns:1fr}
+  .pv-nav{height:66px}
+  .pv-hero{padding:40px 0 36px!important}
+  .pv-chip-live{left:8px}.pv-chip-ai{right:8px}
+  .signup-form{padding:22px}
+}
+
+/* reduced motion for product views */
+@media (prefers-reduced-motion:reduce){ .product-view:not([hidden]){animation:none} }
+
+.product-view section[id]{scroll-margin-top:92px}
+
+/* ---------- Product features: image collage (left) + list (right) ---------- */
+.feat-split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.feat-art{position:relative;min-height:430px;display:flex;align-items:center;justify-content:center}
+.feat-glow{position:absolute;width:88%;height:78%;border-radius:50%;z-index:0;filter:blur(32px);
+  background:radial-gradient(circle at 55% 45%,#d9ccff66,transparent 66%)}
+.product-view[data-tint="stream"] .feat-glow{background:radial-gradient(circle at 55% 45%,#bcd5fb66,transparent 66%)}
+.feat-img-main{position:relative;z-index:1;width:82%;border-radius:18px;border:1px solid #fff;box-shadow:0 26px 60px #6761cb24;display:block;transform:rotate(-1.5deg);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.feat-img-sub{position:absolute;z-index:2;bottom:2%;right:0;width:50%;border-radius:14px;border:3px solid #fff;box-shadow:0 20px 44px #53447922;transform:rotate(2deg);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.feat-art:hover .feat-img-main{transform:rotate(-1.5deg) translateY(-6px)}
+.feat-art:hover .feat-img-sub{transform:rotate(2deg) translateY(-6px)}
+.pv-features .feature-list{display:grid;gap:20px;margin:0}
+.pv-features .feature-list>div{display:flex;gap:16px;align-items:flex-start}
+.pv-features .feature-list h3{font-size:17px;margin:0 0 3px;letter-spacing:-.025em}
+.pv-features .feature-list p{font-size:13px;line-height:1.7;color:var(--muted)}
+@media (max-width:980px){
+  .feat-split{grid-template-columns:1fr;gap:34px}
+  .feat-art{min-height:0;max-width:560px;margin:0 auto}
+}
+@media (max-width:640px){
+  .feat-art{min-height:0}
+  .feat-img-main{width:88%}
+  .feat-img-sub{width:54%}
+}
+
+/* ============================================================
+   10. Back button on the left · footer logo merge · product download screens
+   ============================================================ */
+/* header left group: back button + logo together on the far left */
+.dv-nav-l,.pv-nav-l{display:flex;align-items:center;gap:16px;min-width:0}
+.pv-nav .pv-back,.dv-nav .dv-back{flex-shrink:0}
+
+/* footer logo: merge tight so mascot + wordmark read as one "Facelive" (matches fix3).
+   The mascot's right edge is visually sparse, so pull the wordmark in like the header. */
+.dv-foot-logo .logo,.pv-foot-logo .logo{gap:0;font-size:24px;letter-spacing:-1.2px}
+.dv-foot-logo .brand-mark,.pv-foot-logo .brand-mark{width:29px;height:34px}
+/* The mascot's right edge is visually sparse; pull the wordmark into it so every
+   logo reads as one cohesive "Facelive" (fixes the footer "cách"/split look). */
+.logo{gap:0!important}
+/* proportional pull (scales with each logo's font-size) so the wordmark tucks
+   into the mascot's sparse right edge consistently at every size */
+.logo .brand-mark{margin-right:-0.2em}
+
+/* remove the eyebrow "cell" pills (HAI SẢN PHẨM, LỢI ÍCH VƯỢT TRỘI, …) and product badge */
+.eyebrow,.pv-badge{display:none!important}
+.section-head h2{margin-top:0}
+
+/* per-product download screen tint (stream = blue, like its product page) */
+.download-view[data-tint="stream"]{--purple:#2f6fe0;--gradient:linear-gradient(120deg,#5b8ef2,#2f6fe0)}
+.download-view[data-tint="stream"]{background:radial-gradient(ellipse at 50% -10%,#e4effc 0,transparent 55%),linear-gradient(180deg,#f3f8ff,#f9fbff 45%,#fdfeff)}
+.download-view[data-tint="stream"] .os-icon{background:linear-gradient(140deg,#eaf2ff,#dbe9ff)}
+.download-view[data-tint="stream"] .req-table .req-rec,.download-view[data-tint="stream"] .dv-footer button{color:#2f6fe0}
+
+/* single-OS download grid (FaceLiveStream = Windows only) */
+.os-grid-single{grid-template-columns:minmax(300px,420px);justify-content:center}
+.os-grid-single .os-card{text-align:center}
+
+/* 2-column requirements table (minimum only) */
+.req-table-2 .req-k{width:240px}
+@media (max-width:860px){ .req-table-2 .req-k{width:auto} }
+
+/* tighten the gap between the sticky header and the hero (desktop) */
+@media (min-width:981px){
+  .hero{padding-top:40px}
+  .hero-grid{min-height:0}
+}
+
+/* ===== Round 2 polish ===== */
+
+/* hero: tighter header→content gap (desktop) */
+@media (min-width:981px){ .hero{padding-top:20px} }
+
+/* hero + experience: purple wash over the model's legs so the crop reads intentional */
+.hero-side-by-side{position:relative}
+.hero-side-by-side .hero-person{-webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 96%);mask-image:linear-gradient(to bottom,#000 58%,transparent 96%)}
+.hero-side-by-side::after{content:"";position:absolute;right:-2%;bottom:-4%;width:46%;height:40%;pointer-events:none;z-index:2;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.42),rgba(91,56,219,0));filter:blur(14px)}
+.experience-art-stage{position:relative}
+.experience-layered .experience-staff{-webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 96%);mask-image:linear-gradient(to bottom,#000 58%,transparent 96%)}
+.experience-art-stage::after{content:"";position:absolute;right:-2%;bottom:-4%;width:50%;height:40%;pointer-events:none;z-index:4;border-radius:50%;background:radial-gradient(closest-side,rgba(91,56,219,.42),rgba(91,56,219,0));filter:blur(14px)}
+
+/* feature collage: shift left for balance */
+@media (min-width:861px){ .feat-art{margin-left:-56px} }
+
+/* audience cards: icon left, title right, grey text left-aligned under the title */
+.audience-card{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:start;text-align:left}
+.audience-card>.audience-image,.audience-card>.photo{grid-column:1/-1;grid-row:1}
+.audience-card .audience-title{display:contents}
+.audience-card .audience-title .icon-bubble{grid-column:1;grid-row:2/4;margin-top:14px}
+.audience-card .audience-title h3{grid-column:2;grid-row:2;margin:14px 0 0;min-height:0;align-self:center;text-align:left;justify-self:start}
+.audience-card>p{grid-column:2;grid-row:3;max-width:none;min-height:0;margin:4px 0 0;text-align:left}
+
+/* steps: small arrows without the bubble border */
+.steps .step-arrow{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;width:auto!important;height:auto!important}
+.steps .step-arrow .icon{width:16px;height:16px;stroke-width:2}
+.pv-how .step-arrow{display:none!important}
+
+/* FAQ: answer drops over the layout instead of pushing it */
+.faq-grid{align-items:start}
+.faq-grid details{position:relative}
+.faq-grid details[open]{z-index:5}
+.faq-grid details .answer{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 22px 46px #3a2a8a1f;padding:16px 20px;z-index:6}
+
+/* minimum-spec cards: equal size */
+.spec-grid{grid-auto-rows:1fr}
+.spec-card{height:100%;min-height:104px}
+
+/* OS pill: only on the visitor's own platform card */
+.os-pill{display:none}
+.os-card.you .os-pill{display:inline-block}
+
+/* download + product footers: logo intact (was hit by the generic span rule) */
+.dv-footer .container>span,.pv-footer .container>span{flex:1;min-width:200px;text-align:center}
+.dv-foot-logo .logo,.pv-foot-logo .logo{color:var(--ink)}
+
+/* sign-up: centred form only, equal fields */
+.signup-grid{grid-template-columns:1fr;max-width:560px}
+.su-field input,.su-select select{height:50px;padding:0 15px;box-sizing:border-box}
+.su-field input::placeholder{color:#a3a9c2}
+
+/* reviews: horizontal slider */
+.review-grid{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(300px,380px);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 24px;scrollbar-width:none}
+.review-grid::-webkit-scrollbar{display:none}
+.review-grid>.review-card{scroll-snap-align:start}
+.review-nav{display:flex;justify-content:center;gap:12px;margin:0 0 30px}
+.review-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--purple);font-size:22px;line-height:1;cursor:pointer;box-shadow:0 8px 20px #6a54c81a}
+@media (max-width:640px){ .review-grid{grid-auto-columns:84%} }
+@media (min-width:981px){ .hero .hero-copy{align-self:center} }
+
+/* header lines up with the hero content edges; hero visual nudged left */
+@media (min-width:981px){
+  .header .container{width:calc(100% - 64px)}
+  .hero-svg-stage{position:relative;left:-18px}
+}
+
+/* hero block sits centred in the first screen */
+@media (min-width:981px){
+  .hero{display:flex;align-items:center;min-height:calc(100vh - 88px)}
+  .hero>.container{width:100%}
+}
+
+/* product heroes: fill the first screen, bigger headline + art */
+.pv-hero{min-height:calc(100vh - 88px);display:flex;align-items:center}
+.pv-hero>.container{width:100%}
+.pv-hero-grid{grid-template-columns:1fr 1.2fr}
+.pv-hero h1{font-size:clamp(36px,4.3vw,60px)}
+.pv-hero-art{max-width:none}
+.pv-video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:20px;border:1px solid #fff;background:#0b123e;box-shadow:0 30px 65px #6761cb21;object-fit:contain}
+@media (max-width:980px){ .pv-hero,.hero{min-height:0} }
+
+/* keep site gutters: headline, header and product heroes share one 1280px column */
+@media (min-width:981px){
+  .header .container,.hero>.container,.pv-hero>.container{width:min(1280px,calc(100% - 88px))}
+  .hero .hero-svg-stage{align-self:center}
+}
+
+/* multi-platform box: outline only, like the stat cards */
+.compatibility .windows-box{background:transparent!important;border:1px solid #eeebff!important;border-radius:23px!important;padding:18px 20px!important}
+
+/* footer: small round back-to-top button, bottom right */
+.footer-bottom{align-items:center}
+.footer-bottom .to-top{margin-left:auto;width:38px;height:38px;display:inline-grid;place-items:center;border:1px solid #e0dbff;border-radius:50%;background:#fff;color:var(--purple);box-shadow:0 6px 16px #6a54c81a;transition:transform .2s}
+.footer-bottom .to-top:hover{transform:translateY(-2px)}
+.footer-bottom .to-top .icon{width:16px;height:16px;transform:rotate(-90deg)}
+
+/* stream video: LIVE / AI chips pushed outward so they clear the picture */
+.pv-chip-live{top:-22px!important;left:-22px!important;right:auto!important;bottom:auto!important}
+.pv-chip-ai{bottom:-22px!important;right:-22px!important;left:auto!important;top:auto!important}
+
+/* audience cards: heading and description share one left edge */
+.audience-card .audience-title h3,.audience-card>p{padding:0!important;margin-left:0!important}
+
+/* back-to-top: sticky round button, bottom right of the screen */
+.footer-bottom .to-top{position:fixed;right:22px;bottom:22px;z-index:60;margin:0}
+
+/* review pagination dots */
+.review-dots{display:flex;justify-content:center;gap:8px;margin:4px 0 30px}
+.review-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#d6d0f2;cursor:pointer;transition:width .25s,background .25s}
+.review-dots button.active{width:24px;border-radius:50px;background:var(--gradient)}
+
+/* subscription plans: reference layout: meta row, name, price, divider, checklist, full-width CTA */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan-card{display:flex;flex-direction:column;border:1px solid var(--line);background:#fff;border-radius:24px;padding:28px 28px 26px;box-shadow:0 10px 28px #6a54c808;position:relative}
+.plan-card.featured{border:2px solid var(--purple);box-shadow:0 26px 56px #5b38db26}
+.plan-top{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:26px}
+.plan-label{font-size:13px;color:var(--muted)}
+.plan-badge{background:var(--purple);color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;padding:5px 12px;border-radius:50px;white-space:nowrap}
+.plan-card h3{font-size:26px;letter-spacing:-.035em;margin:18px 0 10px;color:var(--ink)}
+.plan-price{display:flex;align-items:baseline;gap:8px}
+.plan-price b{font-size:40px;letter-spacing:-.045em;color:var(--ink);line-height:1.05}
+.plan-price span{font-size:15px;color:var(--muted)}
+.plan-meta{list-style:none;margin:20px 0 26px;padding:0;display:grid;gap:14px;font-size:15px;color:var(--muted)}
+.plan-meta li{display:flex;gap:11px;align-items:center}
+.plan-meta .icon{width:18px;height:18px;color:var(--purple);flex-shrink:0}
+.plan-meta b{color:var(--ink);font-weight:600}
+.plan-btn{width:100%;margin-top:auto;justify-content:center;padding:15px 18px}
+.plan-trial{font-size:13px;color:var(--muted);text-align:center;margin:18px 0 0}
+@media (max-width:860px){ .plan-grid{grid-template-columns:1fr} }
+
+/* multi-platform box: purple icon bubble + grey text, like the rows below it */
+.compatibility .windows-box .windows-icon{width:40px;height:40px;border-radius:50%;background:#efebff;color:var(--purple);display:grid;place-items:center;font-size:17px;flex-shrink:0}
+.compatibility .windows-box small{color:var(--muted)}
+
+/* plan cards: badge sits top-right; titles line up across all three cards */
+.plan-top{position:absolute;top:24px;right:24px;min-height:0}
+.plan-card h3{margin:0 0 12px}
+
+/* platform row: same look as the rows below (no box, icon bubble + text) */
+.compatibility .windows-box{border:0!important;border-radius:0!important;background:transparent!important;padding:0!important;margin:0!important}
+
+/* License Key cards: smaller type */
+.plan-card h3{font-size:19px}
+.plan-price b{font-size:28px}
+.plan-price span{font-size:13px}
+.plan-meta{font-size:13px}
+.plan-btn{font-size:13px;padding:12px 16px}
+.plan-trial{font-size:12px}
+
+/* feature list: equal gaps between the hover outlines (the -11px vertical margin made neighbouring outlines overlap) */
+.pv-features .feature-list{gap:14px}
+.pv-features .feature-list>div{margin:0 -13px;padding:11px 13px}
+
+/* features collage: same frame size for both products (FaceLiveStream's OBS screenshot is portrait and made its column taller, shifting the headings) */
+.feat-img-main,.feat-img-sub{aspect-ratio:3/2;object-fit:cover;object-position:top left;height:auto}
+.feat-art{min-height:0}
